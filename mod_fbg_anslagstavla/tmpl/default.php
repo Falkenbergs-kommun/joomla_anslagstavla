@@ -177,7 +177,7 @@ $user = Factory::getUser();
 
 					UIkit.upload('.js-upload', {
 
-						url: '/fbg_apps/services/content/postAcceptor.php',
+						url: '/api/anslagstavla/postAcceptor.php',
 
 						beforeSend: function() {
 							console.log('beforeSend', arguments);

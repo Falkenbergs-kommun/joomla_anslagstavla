@@ -24,23 +24,33 @@ Modulen tillhandahåller ett gränssnitt för att skapa, redigera och hantera ol
 
 ```
 anslagstavla/
-├── mod_fbg_anslagstavla/          # Modulens huvudkatalog
-│   ├── mod_fbg_anslagstavla.php   # Huvudfil för modulen
-│   ├── mod_fbg_anslagstavla.xml   # Moduldefinition och konfiguration
-│   ├── anslagstavla.js            # JavaScript för DataTables och formulärhantering
+├── api/                            # Backend REST API
+│   ├── anslagstavla.php            # CRUD endpoints (GET, POST, PATCH)
+│   ├── postAcceptor.php            # PDF upload endpoint
+│   ├── .htaccess                   # Security configuration
+│   └── README.md                   # API documentation
+├── mod_fbg_anslagstavla/           # Frontend Joomla module
+│   ├── mod_fbg_anslagstavla.php    # Module entry point
+│   ├── mod_fbg_anslagstavla.xml    # Module definition
+│   ├── anslagstavla.js             # DataTables and form handling
 │   └── tmpl/
-│       └── default.php            # Mallvy för modulen
-├── README.md                       # Detta dokument
-└── CLAUDE.md                       # AI-assisterad utvecklingsdokumentation
+│       └── default.php             # Template with form UI
+├── README.md                        # This document
+└── CLAUDE.md                        # Development history
 ```
 
 ## Installation
 
-Modulen installeras i Joomlas modulkatalog via en symbolisk länk:
+Modulen installeras via symboliska länkar:
 
 ```bash
-/home/httpd/fbg-intranet/dev-intra.falkenberg.se/modules/mod_fbg_anslagstavla
-  -> /home/httpd/fbg-intranet/joomlaextensions/anslagstavla/mod_fbg_anslagstavla
+# Frontend module
+/modules/mod_fbg_anslagstavla/
+  -> /home/httpd/fbg-intranet/joomlaextensions/anslagstavla/mod_fbg_anslagstavla/
+
+# Backend API
+/api/anslagstavla/
+  -> /home/httpd/fbg-intranet/joomlaextensions/anslagstavla/api/
 ```
 
 ## Beroenden
@@ -52,9 +62,20 @@ Modulen kräver följande externa bibliotek:
 
 ## Backend-integration
 
-Modulen kommunicerar med följande backend-tjänster:
-- `/fbg_apps/services/content/anslagstavla.php` - CRUD-operationer för anslag
-- `/fbg_apps/services/content/postAcceptor.php` - Filuppladdning
+Modulen kommunicerar med sin egen backend-API:
+- `/api/anslagstavla/anslagstavla.php` - CRUD-operationer (GET, POST, PATCH)
+- `/api/anslagstavla/postAcceptor.php` - PDF-filuppladdning
+
+Se [api/README.md](api/README.md) för detaljerad API-dokumentation.
+
+### Externa Beroenden
+
+API:et kräver shared libraries från `/fbg_apps/include/`:
+- `include1.php` - Joomla bootstrapping och session
+- `migrera.php` - REST API wrapper-funktioner
+- `pdo_db.php` - Databaskonfiguration
+
+Dessa filer delas mellan flera system och ligger kvar i sin ursprungliga plats.
 
 ## Användning
 

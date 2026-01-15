@@ -1,4 +1,4 @@
-var anslagUrl = '/fbg_apps/services/content/anslagstavla.php';
+var anslagUrl = '/api/anslagstavla/anslagstavla.php';
 var anslagID = 0;
 
 var noticetype = [];

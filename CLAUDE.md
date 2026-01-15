@@ -32,6 +32,64 @@ Detta dokument beskriver AI-assisterad utveckling och underhåll av Anslagstavla
 - Separera extensions från huvudapplikationen
 - Möjliggöra oberoende versionshantering av modulen
 
+### 2026-01-15 - Backend Migration till Repository
+
+**Genomförda ändringar:**
+
+1. **Backend-flytt till api/-katalog**
+   - Flyttade `anslagstavla.php` från `/fbg_apps/services/content/` till `api/`
+   - Flyttade `postAcceptor.php` från `/fbg_apps/services/content/` till `api/`
+   - Skapade symlink: `/dev-intra.falkenberg.se/api/anslagstavla/` → `/joomlaextensions/anslagstavla/api/`
+   - Nya URL:er: `/api/anslagstavla/anslagstavla.php` och `/api/anslagstavla/postAcceptor.php`
+
+2. **Säkerhet**
+   - Skapade `.htaccess` i `api/` för att:
+     - Blockera directory listing
+     - Tillåta endast .php-filer
+     - Förhindra åtkomst till känsliga filer
+     - Sätta säkerhets-headers (X-Content-Type-Options, X-Frame-Options)
+
+3. **Frontend-uppdateringar**
+   - Uppdaterade `anslagstavla.js:1` - ändrade API-URL till `/api/anslagstavla/anslagstavla.php`
+   - Uppdaterade `tmpl/default.php:180` - ändrade upload-URL till `/api/anslagstavla/postAcceptor.php`
+
+4. **Dokumentation**
+   - Skapade `api/README.md` med komplett API-dokumentation (endpoints, requests, responses)
+   - Uppdaterade huvud-README.md med ny struktur och API-integration
+   - Uppdaterade CLAUDE.md med denna migreringshistorik
+
+5. **Beroenden**
+   - Bibehöll externa beroenden i `/fbg_apps/include/`:
+     - `include1.php` (Joomla bootstrap)
+     - `migrera.php` (REST API wrappers)
+     - `pdo_db.php` (databaskoppling)
+   - Include-sökvägar i API-filerna är absoluta och behövde inga ändringar
+   - Dessa delas mellan flera system och ska INTE kopieras in i repot
+
+**Syfte:**
+- Konsolidera all modulkod (frontend + backend) i ett repository
+- Förbättra underhållbarhet och versionshantering
+- Modernare API-URL-struktur (`/api/...`)
+- Förbättrad säkerhet med dedikerad `.htaccess`
+- Tydligare separation mellan frontend och backend
+
+**Arkitektur efter migration:**
+
+```
+Web-accessible paths:
+├── /modules/mod_fbg_anslagstavla/        → Frontend (symlink)
+└── /api/anslagstavla/                    → Backend (symlink)
+
+Physical repository:
+/joomlaextensions/anslagstavla/
+├── api/                                  → Backend (nytt)
+│   ├── anslagstavla.php
+│   ├── postAcceptor.php
+│   ├── .htaccess
+│   └── README.md
+└── mod_fbg_anslagstavla/                 → Frontend
+```
+
 ## Teknisk Översikt
 
 ### Arkitektur
