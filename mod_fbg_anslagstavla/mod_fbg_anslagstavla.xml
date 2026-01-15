@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="3.8" client="site" method="upgrade">
+	<name>FBG Anslagstavla</name>
+	<creationDate>2022-02-03</creationDate>
+	<author>Tomas Bolling Nilsson</author>
+	<authorEmail>tomas.bollingnilsson@falkenberg.se</authorEmail>
+	<authorUrl>falkenberg.se</authorUrl>
+	<copyright>2022</copyright>
+	<license>NA</license>
+	<version>1.0</version>
+	<description>Skapa anslag för servicewebben</description>
+
+	<files>
+		<filename module="mod_fbg_anslagstavla">mod_fbg_anslagstavla.php</filename>
+		<folder>tmpl</folder>
+		<filename>mod_fbg_anslagstavla.xml</filename>
+		<filename>anslagstavla.js</filename>
+	</files>
+
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field
+					name="domain"
+					type="url"
+					label="MOD_FBG_GROUPS_URL_LABEL"
+					description="MOD_FBG_GROUPS_URL_DESCRIPTION"
+					hint="https://www.example.com"
+					filter="url"
+					validate="url"
+				/>
+			</fieldset>
+			<fieldset
+					name="advanced">
+				<field
+						name="moduleclass_sfx"
+						type="text"
+						label="COM_MODULES_FIELD_MODULECLASS_SFX_LABEL"
+						description="COM_MODULES_FIELD_MODULECLASS_SFX_DESC" />
+			</fieldset>
+		</fields>
+	</config>
+</extension>
