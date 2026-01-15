@@ -1,0 +1,95 @@
+# Anslagstavla .gitignore
+
+# Loggfiler
+*.log
+*.log.*
+logs/
+*.sql
+
+# Temporära filer
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Backup-filer
+*.bak
+*.backup
+*.old
+*~
+
+# IDE och Editor-filer
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+*.iml
+
+# OS-specifika filer
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# PHP-specifika
+vendor/
+composer.phar
+composer.lock
+.phpunit.result.cache
+
+# Node modules (om någon använder)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment och konfigurationsfiler med känslig data
+.env
+.env.local
+.env.*.local
+config.php
+configuration.php
+wp-config.php
+
+# Cache och sessions
+cache/
+tmp/
+temp/
+sessions/
+
+# Kompilerade/byggda filer
+*.compiled
+dist/
+build/
+
+# Test-relaterat
+coverage/
+.phpunit.cache
+
+# Databas-dumps
+*.sql
+*.sql.gz
+*.sql.zip
+
+# Komprimerade filer
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# Säkerhetskopior som vi skapade under migration
+*.php.backup
+*.php.removed
+
+# Tillfälliga test-filer
+/tmp/test-*.json
