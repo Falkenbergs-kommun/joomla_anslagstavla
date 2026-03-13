@@ -223,6 +223,8 @@ function createNotice($row)
         $id = strval($row['noticeID']);
         return JoomlaApiPatch('/content/articles/' . $id, $payload);
     } else {
+        $slug = strtolower(trim(preg_replace('/[^a-z0-9]+/i', '-', $row['form-title']), '-'));
+        $payload['alias'] = $slug . '-' . date('YmdHis');
         return JoomlaApiPost('/content/articles', $payload);
     }
 }
